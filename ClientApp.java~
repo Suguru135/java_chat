@@ -29,7 +29,7 @@ public class ClientApp {
 			String line;
 			System.out.println("óM‘Ò‚¿cc");
 
-			while((line = br.readLine()) != null || line.equals("<end>")) {
+			while((line = br.readLine()) != null && ! line.equals("<end>")) {
 				System.out.println("-> " + line);
 			}
 

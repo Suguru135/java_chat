@@ -20,20 +20,41 @@ public class ClientApp {
 			// 送信
 			pw.println("こんにちは");
 			pw.println("成功した？");
-			pw.println("<end>");
+			pw.println("<fin>");
 			pw.flush();
 
 			System.out.println("送信完了");
 
 			// 受信
-			String line;
 			System.out.println("受信待ち……");
 
-			while((line = br.readLine()) != null && ! line.equals("<end>")) {
-				System.out.println("-> " + line);
+			connect:
+			while(true) {
+				String line;
+
+				receive:
+				while(true) {
+					line = br.readLine();
+
+					if(line == null || line.equals("<fin>")) {
+
+						System.out.println("読み込み完了 && 切断");
+						break connect;
+
+					} else if(line.equals("<end>")) {
+
+						System.out.println("読み込み完了");
+						break receive;
+
+					} else {
+
+						System.out.println("-> " + line);
+
+					}
+				}
 			}
 
-			System.out.println("受信完了");
+			System.out.println("切断");
 
 			// close処理
 			br.close();
